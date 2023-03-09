@@ -6,6 +6,8 @@ type Props = {
 };
 
 export const TodoList: React.FC<Props> = ({ todos }) => {
+  console.log('Rendering TodoList');
+
   return (
     <section className="todo-list">
       {todos.map(todo => (

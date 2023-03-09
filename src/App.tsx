@@ -11,10 +11,25 @@ const todosFromServer = [
 
 export function App() {
   const [todos, setTodos] = useState(todosFromServer);
+  const [query, setQuery] = useState('');
+  const [count, setCount] = useState(0);
+
+  const lowerQuery = query.toLocaleLowerCase();
+  const visibleTodos = todos.filter(
+    todo => todo.title.toLocaleLowerCase().includes(lowerQuery),
+  );
 
   return (
     <main className="App">
-      <TodoList todos={todos} />
+      <button onClick={() => setCount(x => x + 1)}>{count}</button>
+
+      <input
+        type="text"
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+      />
+
+      <TodoList todos={visibleTodos} />
     </main>
   );
 }

@@ -7,7 +7,10 @@ type Props = {
 export const TodoItem: React.FC<Props> = ({ todo }) => {
   return (
     <div className="todo">
-      <input type="checkbox" checked={todo.completed} />
+      <input
+        type="checkbox"
+        defaultChecked={todo.completed}
+      />
       {todo.title}
     </div>
   );
