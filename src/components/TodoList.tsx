@@ -4,12 +4,13 @@ import { TodoItem } from './TodoItem';
 
 type Props = {
   todos: Todo[];
+  onTodoDelete: (todoId: number) => void;
 };
 
 let prevTodos: Todo[] = [];
 
 export const TodoList: React.FC<Props> = React.memo(
-  ({ todos }) => {
+  ({ todos, onTodoDelete }) => {
     console.log('Rendering TodoList');
 
     console.log(prevTodos === todos);
@@ -18,7 +19,11 @@ export const TodoList: React.FC<Props> = React.memo(
     return (
       <section className="todo-list">
         {todos.map(todo => (
-          <TodoItem key={todo.id} todo={todo} />
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onDelete={() => onTodoDelete(todo.id)}
+          />
         ))}
       </section>
     );

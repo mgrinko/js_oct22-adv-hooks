@@ -22,10 +22,18 @@ export function App() {
     return todos.filter(
       todo => todo.title.toLocaleLowerCase().includes(lowerQuery),
     );
-  }, [query]);
+  }, [query, todos]);
 
   function addTodo(newTodo: Todo) {
     setTodos([...todos, newTodo]);
+  }
+
+  function deleteTodo(todoId: number) {
+    setTodos(
+      todos.filter(
+        todo => todo.id !== todoId,
+      )
+    );
   }
 
   return (
@@ -39,7 +47,10 @@ export function App() {
       />
 
       <TodoForm onSubmit={addTodo} />
-      <TodoList todos={visibleTodos} />
+      <TodoList
+        todos={visibleTodos}
+        onTodoDelete={deleteTodo}
+      />
     </main>
   );
 }
