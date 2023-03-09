@@ -7,14 +7,9 @@ type Props = {
   onTodoDelete: (todoId: number) => void;
 };
 
-let prevTodos: Todo[] = [];
-
 export const TodoList: React.FC<Props> = React.memo(
   ({ todos, onTodoDelete }) => {
-    console.log('Rendering TodoList');
-
-    console.log(prevTodos === todos);
-    prevTodos = todos;
+    // console.log('Rendering TodoList');
 
     return (
       <section className="todo-list">

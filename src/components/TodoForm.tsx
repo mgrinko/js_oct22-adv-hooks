@@ -20,6 +20,9 @@ export const TodoForm: React.FC<Props> = ({ onSubmit }) => {
           title,
           completed,
         });
+
+        setTitle('');
+        setCompleted(false);
       }}
     >
       <input
