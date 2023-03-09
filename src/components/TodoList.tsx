@@ -1,3 +1,4 @@
+import React from 'react';
 import { Todo } from '../types/Todo'
 import { TodoItem } from './TodoItem';
 
@@ -5,14 +6,21 @@ type Props = {
   todos: Todo[];
 };
 
-export const TodoList: React.FC<Props> = ({ todos }) => {
-  console.log('Rendering TodoList');
+let prevTodos: Todo[] = [];
 
-  return (
-    <section className="todo-list">
-      {todos.map(todo => (
-        <TodoItem key={todo.id} todo={todo} />
-      ))}
-    </section>
-  );
-}
+export const TodoList: React.FC<Props> = React.memo(
+  ({ todos }) => {
+    console.log('Rendering TodoList');
+
+    console.log(prevTodos === todos);
+    prevTodos = todos;
+
+    return (
+      <section className="todo-list">
+        {todos.map(todo => (
+          <TodoItem key={todo.id} todo={todo} />
+        ))}
+      </section>
+    );
+  }
+);

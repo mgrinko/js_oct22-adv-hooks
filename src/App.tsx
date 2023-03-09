@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.css';
+import { TodoForm } from './components/TodoForm';
 import { TodoList } from './components/TodoList';
+import { Todo } from './types/Todo';
 
 const todosFromServer = [
   { id: 1, title: 'HTML', completed: true },
@@ -14,10 +16,17 @@ export function App() {
   const [query, setQuery] = useState('');
   const [count, setCount] = useState(0);
 
-  const lowerQuery = query.toLocaleLowerCase();
-  const visibleTodos = todos.filter(
-    todo => todo.title.toLocaleLowerCase().includes(lowerQuery),
-  );
+  const visibleTodos = useMemo(() => {
+    const lowerQuery = query.toLocaleLowerCase();
+
+    return todos.filter(
+      todo => todo.title.toLocaleLowerCase().includes(lowerQuery),
+    );
+  }, [query]);
+
+  function addTodo(newTodo: Todo) {
+    setTodos([...todos, newTodo]);
+  }
 
   return (
     <main className="App">
@@ -29,6 +38,7 @@ export function App() {
         onChange={e => setQuery(e.target.value)}
       />
 
+      <TodoForm onSubmit={addTodo} />
       <TodoList todos={visibleTodos} />
     </main>
   );
