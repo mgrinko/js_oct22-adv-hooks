@@ -1,4 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
+import debounce from 'lodash.debounce';
+
 import './App.css';
 import { TodoForm } from './components/TodoForm';
 import { TodoList } from './components/TodoList';
@@ -12,20 +14,19 @@ const todosFromServer = [
 ];
 
 
-function debounce(callback: Function, delay: number) {
-  let timerId = 0;
+// function debounce(callback: Function, delay: number) {
+//   let timerId = 0;
 
-  return (...args: any[]) => {
-    window.clearTimeout(timerId);
-    // -0 +1
-    // -1 +2
-    // -2 +3
+//   return (...args: any[]) => {
+//     window.clearTimeout(timerId);
 
-    timerId = window.setTimeout(() => {
-      callback(...args);
-    }, delay);
-  };
-}
+//     timerId = window.setTimeout(() => {
+//       callback(...args);
+//     }, delay);
+//   };
+// }
+
+// ____+1___1()_____-1________
 
 export function App() {
   const [count, setCount] = useState(0);
