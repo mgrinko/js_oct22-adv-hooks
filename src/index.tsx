@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { App } from './App';
+import { ArchivePage } from './pages/ArchivePage';
 import { TodosPage } from './pages/TodosPage';
 import { TodosProvider } from './TodosContext';
 
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
       },
       {
         path: "archive",
-        element: <h1>Archive page</h1>,
+        element: <ArchivePage />,
       },
     ],
   },

@@ -4,8 +4,8 @@ import { TodoForm } from './TodoForm';
 
 type Props = {
   todo: Todo;
-  onDelete: () => void;
-  onUpdate: (todo: Todo) => void;
+  onDelete?: (todoId: number) => void;
+  onUpdate?: (todo: Todo) => void;
 };
 
 export const TodoItem: React.FC<Props> = ({
@@ -15,10 +15,16 @@ export const TodoItem: React.FC<Props> = ({
 }) => {
   const [editing, setEditing] = useState(false);
 
-  if (editing) {
+  if (onUpdate && editing) {
     return (
       <div className="todo">
-        <TodoForm onSubmit={onUpdate} />
+        <TodoForm
+          onSubmit={(updatedTodo: Todo) => {
+            onUpdate && onUpdate(updatedTodo);
+            setEditing(false);
+          }}
+          todo={todo}
+        />
       </div>
     );
   }
@@ -29,9 +35,17 @@ export const TodoItem: React.FC<Props> = ({
         {todo.title}
       </span>
 
-      <button onClick={onDelete}>
-        X
-      </button>
+      {onUpdate && (
+        <button onClick={() => setEditing(true)}>
+          Edit
+        </button>
+      )}
+
+      {onDelete && (
+        <button onClick={() => onDelete(todo.id)}>
+          X
+        </button>
+      )}
     </div>
   );
 }

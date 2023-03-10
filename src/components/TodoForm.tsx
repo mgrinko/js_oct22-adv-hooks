@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { Todo } from '../types/Todo'
 
 type Props = {
-  onSubmit: (todo: Todo) => void,
+  todo?: Todo;
+  onSubmit: (todo: Todo) => void;
 };
 
-export const TodoForm: React.FC<Props> = ({ onSubmit }) => {
-  const [title, setTitle] = useState('');
-  const [completed, setCompleted] = useState(false);
+export const TodoForm: React.FC<Props> = ({ onSubmit, todo }) => {
+  const [title, setTitle] = useState(todo?.title || '');
+  const [completed, setCompleted] = useState(todo?.completed || false);
 
   return (
     <form
@@ -16,7 +17,7 @@ export const TodoForm: React.FC<Props> = ({ onSubmit }) => {
         event.preventDefault();
 
         onSubmit({
-          id: Date.now(),
+          id: todo?.id || Date.now(),
           title,
           completed,
         });
@@ -37,7 +38,9 @@ export const TodoForm: React.FC<Props> = ({ onSubmit }) => {
         onChange={e => setTitle(e.target.value)}
       />
 
-      <button type="submit">Add</button>
+      <button type="submit">
+        {todo ? 'Save' : 'Add'}
+      </button>
     </form>
   );
 }

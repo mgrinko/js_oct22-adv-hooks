@@ -4,8 +4,8 @@ import { TodoItem } from './TodoItem';
 
 type Props = {
   todos: Todo[];
-  onTodoDelete: (todoId: number) => void;
-  onTodoUpdate: (todo: Todo) => void;
+  onTodoDelete?: (todoId: number) => void;
+  onTodoUpdate?: (todo: Todo) => void;
 };
 
 export const TodoList: React.FC<Props> = React.memo(
@@ -18,7 +18,7 @@ export const TodoList: React.FC<Props> = React.memo(
           <TodoItem
             key={todo.id}
             todo={todo}
-            onDelete={() => onTodoDelete(todo.id)}
+            onDelete={onTodoDelete}
             onUpdate={onTodoUpdate}
           />
         ))}

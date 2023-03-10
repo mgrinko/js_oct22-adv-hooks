@@ -1,7 +1,19 @@
 import React, { useCallback, useState } from 'react';
 import { Todo } from './types/Todo';
 
-export const TodosContext = React.createContext<Todo[]>([]);
+type TodosContextType = {
+  todos: Todo[];
+  addTodo(todo: Todo): void;
+  deleteTodo(todoId: number): void;
+  updateTodo(todo: Todo): void;
+}
+
+export const TodosContext = React.createContext<TodosContextType>({
+  todos: [],
+  addTodo() {},
+  deleteTodo() {},
+  updateTodo() {},
+});
 
 type Props = {
   children: React.ReactNode
@@ -33,8 +45,12 @@ export const TodosProvider: React.FC<Props> = ({ children }) => {
     ));
   }, []);
 
+  const value = {
+    todos, addTodo, deleteTodo, updateTodo
+  }
+
   return (
-    <TodosContext.Provider value={todos}>
+    <TodosContext.Provider value={value}>
       { children }
     </TodosContext.Provider>
   );

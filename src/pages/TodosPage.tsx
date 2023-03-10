@@ -5,7 +5,7 @@ import { TodoList } from '../components/TodoList'
 import { TodosContext } from '../TodosContext';
 
 export const TodosPage: React.FC = () => {
-  const todos = useContext(TodosContext);
+  const { todos, addTodo, deleteTodo, updateTodo } = useContext(TodosContext);
 
   const [query, setQuery] = useState('');
   const [appliedQuery, setAppliedQuery] = useState('');
@@ -28,13 +28,13 @@ export const TodosPage: React.FC = () => {
 
   return (
     <div className="TodosPage">
-      <TodoForm onSubmit={() => {}} />
+      <TodoForm onSubmit={addTodo} />
       <input value={query} onChange={handleQueryChange} />
 
       <TodoList
         todos={visibleTodos}
-        onTodoDelete={() => {}}
-        onTodoUpdate={() => {}}
+        onTodoDelete={deleteTodo}
+        onTodoUpdate={updateTodo}
       />
 
       <p>{activeTodos.length} items left</p>
